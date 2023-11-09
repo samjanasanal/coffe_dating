@@ -4,6 +4,8 @@ import Home from './pages/Home'
 import OutletConnection from './routes/OutletConnection'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import ProfileFilter from './pages/ProfileFilter'
+import ProfileDetails from './pages/ProfileDetails'
 
 function App() {
   
@@ -15,6 +17,8 @@ function App() {
         <Route index element={<Home/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
+        <Route path='/profileFilter' element={<ProfileFilter/>}/>
+        <Route path='/profileDetails' element={<ProfileDetails/>}/>
       </Route>
     </Routes>
     </>

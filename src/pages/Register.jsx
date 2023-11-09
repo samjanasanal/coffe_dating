@@ -1,7 +1,32 @@
-import React from 'react'
+import React , {useState} from 'react'
 import { Helmet } from 'react-helmet'
+import * as filestack from "filestack-js";
 
 function Register() {
+
+
+    const clients = filestack.init("AVg0GNiqZTK2dSviLe3YHz");
+    const openFilePicker = () => {
+      const options = {
+        fromSources: ["local_file_system", "instagram", "facebook"],
+        accept: ["image/*"],
+        transformations: {
+          crop: {
+            aspectRatio: 2 / 2,
+            force: true,
+          },
+        },
+        maxFiles: 3, // Adjust the maximum number of files allowed
+        minFiles: 1,
+        uploadInBackground: false,
+        onUploadDone: (res) => {
+          const uploadedImages = res.filesUploaded.map((file) => file.url);
+          setData({ ...data, image: uploadedImages });
+        },
+      };
+      clients.picker(options).open();
+    };  
+
   return (
     <>
    <div>
@@ -12,14 +37,14 @@ function Register() {
       <div className="row intro-title text-center">
         <div className="col-md-12">
           <div className="section-title">
-            <h1 className="position-relative divider">register 1<span className="sub-title w-100">register 1</span></h1>
+            <h1 className="position-relative divider"><span className="sub-title w-100">Register</span></h1>
           </div>
         </div>
         <div className="col-md-12 mt-7">
           <ul className="page-breadcrumb">
             <li><a href="index-default.html"><i className="fa fa-home" /> Home</a> <i className="fa fa-angle-double-right" /></li>
             <li><a href="register.html">Pages</a> <i className="fa fa-angle-double-right" /></li>
-            <li><span>register 1</span> </li>
+            <li><span>register</span> </li>
           </ul>
         </div>
       </div>
@@ -37,17 +62,17 @@ function Register() {
             <h4 className="title divider-3 text-white mb-3">sign up</h4>
             <div className="section-field mb-3">
               <div className="field-widget"> <i className="glyph-icon flaticon-user" />
-                <input id="Firstname" type="text" placeholder="First name" />
+                <input id="Firstname" type="text" placeholder="User name" />
               </div>
             </div>
             <div className="section-field mb-3">
               <div className="field-widget"> <i className="glyph-icon flaticon-user" />
-                <input id="Lastname" type="text" placeholder="Last name" />
+                <input id="Lastname" type="text" placeholder="Mobile" />
               </div>
             </div>
             <div className="section-field mb-3">
               <div className="field-widget"> <i className="fa fa-envelope-o" aria-hidden="true" />
-                <input id="email" className="email" type="email" placeholder="Email" name="email" />
+                <input id="email" className="email" type="number" placeholder="Age" name="email" />
               </div>
             </div>
             <div className="section-field mb-3">
@@ -61,13 +86,51 @@ function Register() {
               </div>
             </div>
             <div className="section-field mb-3">
-              <div className="field-widget"> <i className="fa fa-graduation-cap" aria-hidden="true" />
-                <input id="Collagename" type="text" placeholder="Collage name" />
+            <div className="field-widget">
+            {/* <div className="field-widget "><i className="glyph-icon flaticon-user" /> */}
+            {/* <label for="gender" class="form-label">
+                          Gender
+                        </label> */}
+                    
+                    <select
+                          name="gender"
+                          id=""
+                          className="form-select"
+                          style={{width :"300px", textAlign:"center"}}
+                        //   value={personalForm?.gender}
+                        //   onChange={(e) =>
+                        //     SetPersonalForm({
+                        //       ...personalForm,
+                        //       gender: e.target.value,
+                        //     })
+                        //   }
+                        >
+                          <option disabled selected value="">
+                            -- Select Gender --
+                          </option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                          <option value="other">Other</option>
+                        </select>
+                
+                        
+                </div>
+            </div>
+            <div className="section-field mb-3">
+                    <div className="field-widget">
+                      <button className="btn btn-danger" onClick={openFilePicker}>
+                        Picture
+                      </button>
+                    </div>
+                  </div>
+            <div className="section-field mb-3">
+              <div className="field-widget"> <i className="fa fa-briefcase" aria-hidden="true" />
+                <input id="Proffesionname" type="text" placeholder="Location" />
               </div>
             </div>
             <div className="section-field mb-3">
               <div className="field-widget"> <i className="fa fa-briefcase" aria-hidden="true" />
-                <input id="Proffesionname" type="text" placeholder="Proffesion" />
+                <input id="Proffesionname" type="text" placeholder="Bio" />
               </div>
             </div>
             <div className="clearfix" />

@@ -1,7 +1,9 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
+import { Link } from 'react-router-dom'
 
 function Login() {
+    
   return (
     <>
     <div>
@@ -12,14 +14,14 @@ function Login() {
       <div className="row intro-title text-center">
         <div className="col-md-12">
           <div className="section-title">
-            <h1 className="position-relative divider">login <span className="sub-title">login</span></h1>
+            <h1 className="position-relative divider"> <span className="sub-title">login</span></h1>
           </div>
         </div>
         <div className="col-md-12 mt-7">
           <ul className="page-breadcrumb">
             <li><a href="index-default.html"><i className="fa fa-home" /> Home</a> <i className="fa fa-angle-double-right" /></li>
             <li><a href="login.html">Pages</a> <i className="fa fa-angle-double-right" /></li>
-            <li><span>Login 1</span> </li>
+            <li><span>Login</span> </li>
           </ul>
         </div>
       </div>
@@ -35,12 +37,12 @@ function Login() {
         <div className="col-lg-6">
           <div className="login-1-form clearfix text-center">
             <h4 className="title divider-3 text-white">SIGN IN</h4>
-            <div className="login-1-social my-4 my-md-5 text-center clearfix">
+            {/* <div className="login-1-social my-4 my-md-5 text-center clearfix">
               <ul className="list-inline text-capitalize">
                 <li><a className="fb" href="#"><i className="fa fa-facebook" /> Facebook</a></li>
                 <li><a className="gplus" href="#"><i className="fa fa-google-plus" /> google+</a></li>
               </ul>
-            </div>
+            </div> */}
             <div className="section-field mb-3">
               <div className="field-widget"> <i className="glyph-icon flaticon-user" />
                 <input id="name" className="web" type="text" placeholder="User name" name="web" />
@@ -56,7 +58,7 @@ function Login() {
             <div className="section-field text-uppercase text-center mt-2"> <a className="button  btn-lg btn-theme full-rounded animated right-icn"><span>sign in<i className="glyph-icon flaticon-hearts" aria-hidden="true" /></span></a> </div>
             <div className="clearfix" />
             <div className="section-field mt-2 text-center text-white">
-              <p className="lead mb-0">Don’t have an account? <a className="text-white" href="register.html"><u>Register now!</u> </a></p>
+              <p className="lead mb-0">Don’t have an account? <Link className="text-white" to={`/register`}><u>Register now!</u> </Link></p>
             </div>
           </div>
         </div>
