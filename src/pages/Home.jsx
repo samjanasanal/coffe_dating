@@ -1,7 +1,19 @@
-import React from 'react'
+import React ,{ useState } from 'react'
 import { Helmet } from 'react-helmet'
 
 function Home() {
+
+  const [data, setdata] = useState()
+  
+
+
+  const numbers = Array.from({ length: 50 }, (_, index) =>index+1);
+
+  
+  const sendData = async() => {
+    
+  }
+  
   return (
     <>
     <div>
@@ -76,9 +88,10 @@ function Home() {
               </div>
               <div className="col-lg-7 col-md-12">
                 <div className="selected-box">
-                  <select className="selectpicker">
-                    <option>Man</option>
-                    <option>Woman</option>
+                  <select className="selectpicker" value={data?.sex} onChange={(e)=>setdata({...data , sex : e.target.value})}>
+                    <option value="male">Man</option>
+                    <option value="female">Woman</option>
+                    <option value="others">Others</option>
                   </select>
                 </div>
               </div>
@@ -91,9 +104,22 @@ function Home() {
               </div>
               <div className="col-lg-7 col-md-12">
                 <div className="selected-box">
-                  <select className="selectpicker">
-                    <option>Man</option>
-                    <option>Woman</option>
+                  <select className="selectpicker" value={data?.location} onChange={(e)=>setdata({...data , location : e.target.value})}>
+                    <option disabled value="">--Select--</option>
+                    <option value="kasaragod">Kasaragod</option>
+                    <option value="kannur">Kannur</option>
+                    <option value="kozhikode">Kozhikode</option>
+                    <option value="wayanad">Wayanad</option>
+                    <option value="malappuram">Malappuram</option>
+                    <option value="idukki">Idukki</option>
+                    <option value="palakkad">Palakkad</option>
+                    <option value="thrissur">Thrissur</option>
+                    <option value="alappuzha">Alappuzha</option>
+                    <option value="ernakulam">Ernakulam</option>
+                    <option value="kottayam">Kottayam</option>
+                    <option value="pathanamthitta">Pathanamthitta</option>
+                    <option value="kollam">Kollam</option>
+                    <option value="thiruvananthapuram">Thiruvananthapuram</option>
                   </select>
                 </div>
               </div>
@@ -108,30 +134,11 @@ function Home() {
                   </div>
                   <div className="col-lg-8 col-md-12">
                     <div className="selected-box">
-                      <select className="selectpicker">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
-                        <option>13</option>
-                        <option>14</option>
-                        <option>15</option>
-                        <option>16</option>
-                        <option>17</option>
-                        <option>18</option>
-                        <option>19</option>
-                        <option>20</option>
-                        <option>21</option>
-                        <option>22</option>
-                      </select>
+                    <select className="selectpicker" value={data?.fromage} onChange={(e)=>setdata({...data , fromage :e.target.value})}>
+                       {numbers.slice(17).map(number => (
+                          <option key={number} value={number}>{number}</option>
+                        ))}
+                    </select>
                     </div>
                   </div>
                 </div>
@@ -143,30 +150,11 @@ function Home() {
                   </div>
                   <div className="col-lg-8 col-md-12">
                     <div className="selected-box">
-                      <select className="selectpicker">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
-                        <option>13</option>
-                        <option>14</option>
-                        <option>15</option>
-                        <option>16</option>
-                        <option>17</option>
-                        <option>18</option>
-                        <option>19</option>
-                        <option>20</option>
-                        <option>21</option>
-                        <option>22</option>
-                      </select>
+                    <select className="selectpicker" value={data?.toage} onChange={(e)=>setdata({...data , toage : e.target.value})}>
+                        {numbers.slice(17).map(number => (
+                          <option key={number} value={number}>{number}</option>
+                        ))}
+                    </select>
                     </div>
                   </div>
                 </div>
@@ -184,9 +172,8 @@ function Home() {
     <div className="container">
       <div className="row justify-content-center mb-4 mb-md-5">
         <div className="col-md-10 text-center">
-          <h2 className="title divider mb-3">Step to find your Soul Mate</h2>
-          <p className="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed <br />
-            do eiusmod tempor incididunt ut labore et dolore magna</p>
+          <h2 className="title divider mb-3">Step to find your Coffee Mate</h2>
+          <p className="lead">Make your Coffee date: Sip, chat, spark connection!</p>
         </div>
       </div>
       <div className="row justify-content-center">
@@ -196,10 +183,10 @@ function Home() {
               <div className="timeline-badge"><img className="img-fluid" src="/assets/images/timeline/01.png" alt /></div>
               <div className="timeline-panel">
                 <div className="timeline-heading text-center">
-                  <h4 className="timeline-title divider-3">CREATE PROFILE</h4>
+                  <h4 className="timeline-title divider-3">Craft Your Love Canvas</h4>
                 </div>
                 <div className="timeline-body">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  enim ad minim veniam, quis</p>
+                  <p>Craft your love story with a captivating profile! Add your favorite hobbies, a dash of personality, and a sprinkle of what makes you, well, you. Your journey to find love starts here!</p>
                 </div>
               </div>
             </li>
@@ -210,7 +197,7 @@ function Home() {
                   <h4 className="timeline-title divider-3">Find match</h4>
                 </div>
                 <div className="timeline-body">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  enim ad minim veniam, quis</p>
+                  <p>"Swipe, match, connect! Discover potential partners based on shared interests, values, and quirks. Our smart matching algorithm makes finding your perfect match a breeze. Get ready to meet someone who gets you!"</p>
                 </div>
               </div>
             </li>
@@ -218,10 +205,10 @@ function Home() {
               <div className="timeline-badge"><img className="img-fluid" style={{ height : "108px", width : "108px"}} src="/assets/images/timeline/03.png" alt /></div>
               <div className="timeline-panel">
                 <div className="timeline-heading text-center">
-                  <h4 className="timeline-title divider-3">START DATING</h4>
+                  <h4 className="timeline-title divider-3">Start Your Date</h4>
                 </div>
                 <div className="timeline-body">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  enim ad minim veniam, quis</p>
+                  <p>Sip, chat, connect! Elevate your first encounter with the aroma of shared moments. Dive into meaningful conversations over coffee—a simple date brewing the beginnings of something beautiful</p>
                 </div>
               </div>
             </li>
