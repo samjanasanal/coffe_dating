@@ -44,6 +44,7 @@ function ProfileFilter() {
     </div>
     <div className="row">
     {filterusers.length?filterusers.map((itm,k)=>(
+      itm.id===localStorage.getItem("userid-cofee")?"":
       <div className="col-lg-3 col-sm-6">
         <div className="team team-1 sm-mb-3">
           <div className="team-images"> <img className="img-fluid" src={itm?.photourl??"/assets/images/profile/01.jpg"} alt /> </div>
