@@ -73,7 +73,7 @@ footer */}
         <div className="row justify-content-center">
           <div className="col-md-8">
             <div className="footer-logo mb-2"> <img className="img-center" src="/assets/images/footer-logo.png" alt /> </div>
-            <div className="social-icons color-hover">
+            {/* <div className="social-icons color-hover">
               <ul>
                 <li className="social-facebook"><a href="#"><i className="fa fa-facebook" /></a></li>
                 <li className="social-twitter"><a href="#"><i className="fa fa-twitter" /></a></li>
@@ -81,8 +81,8 @@ footer */}
                 <li className="social-gplus"><a href="#"><i className="fa fa-google-plus" /></a></li>
                 <li className="social-youtube"><a href="#"><i className="fa fa-youtube" /></a></li>
               </ul>
-            </div>
-            <p className="text-white">© 2022  - Cupid Love All Right Reserved </p>
+            </div> */}
+            <p className="text-white">© 2023  -Coffee Connection  All Right Reserved </p>
           </div>
         </div>
       </div>
