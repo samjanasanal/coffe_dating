@@ -973,7 +973,7 @@ form .textarea { resize: vertical; }
 .timeline-body{position: relative; margin-top: 10px; text-align: center;}
 .timeline-body:before{content: ""; position: absolute; right: -60px; top: 15px; background: url(../images/timeline/timeline-bdr.png) no-repeat 0 0; width: 52px; height: 100%;}
 .timeline-inverted .timeline-body:before{left: -60px;}
-.timeline-section:before{position: absolute; bottom: -100px; left: 20px; z-index: 9; width: 373px; height: 1000px; content: ""; background: url(../images/timeline-img.png) no-repeat 0 0; background-size: contain;}
+/* .timeline-section:before{position: absolute; bottom: -100px; left: 20px; z-index: 9; width: 373px; height: 1000px; content: ""; background: url(../images/timeline-img.png) no-repeat 0 0; background-size: contain;} */
 .timeline-inner{ background-position: right -270px bottom -100px !important; height: 578px; background-repeat: no-repeat !important;}
 
 /*----------------------------------------------------------------------

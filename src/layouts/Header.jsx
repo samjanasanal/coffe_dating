@@ -6,7 +6,7 @@ function Header() {
        {/*=================================
 header */}
   <header id="header" className="dark">
-    <div className="topbar">
+    {/* <div className="topbar">
       <div className="container">
         <div className="row align-items-center">
           <div className="col-md-6">
@@ -33,7 +33,7 @@ header */}
           </div>
         </div>
       </div>
-    </div>
+    </div> */}
     {/*=================================
  mega menu */}
     <div className="menu">

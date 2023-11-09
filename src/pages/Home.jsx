@@ -1,18 +1,17 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 
 function Home() {
   return (
     <>
-        <div>
-  
-  
+    <div>
   {/*=================================
  banner */}
   <section id="home-slider" className="fullscreen">
     <div id="main-slider" className="carousel slide" data-bs-ride="carousel">
       <div className="carousel-inner">
         {/*/ Carousel item end */}
-        <div className="carousel-item active h-100 bg-overlay-red" style={{background: 'url(/assets/images/bg/bg-1.jpg) no-repeat 0 0', backgroundSize: 'cover'}}>
+        <div className="carousel-item active h-100 bg-overlay-red" style={{background: `url("/assets/images/bg/bg-1.jpg") no-repeat 0 0`, backgroundSize: 'cover'}}>
           <div className="slider-content">
             <div className="container">
               <div className="row carousel-caption align-items-center h-100">
@@ -25,7 +24,7 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className="carousel-item h-100 bg-overlay-red" style={{background: 'url(/assets/images/bg/bg-2.jpg) no-repeat 0 0', backgroundSize: 'cover'}}>
+        <div className="carousel-item h-100 bg-overlay-red" style={{background: `url("/assets/images/bg/bg-2.jpg") no-repeat 0 0`, backgroundSize: 'cover'}}>
           <div className="slider-content">
             <div className="container">
               <div className="row carousel-caption align-items-center h-100">
@@ -51,7 +50,7 @@ function Home() {
     <div className="container">
       <div className="banner-form">
         <div className="row">
-          <div className="col-md-3">
+          {/* <div className="col-md-3">
             <div className="form-group row align-items-center">
               <div className="col-lg-4 col-md-12">
                 <label className="control-label text-white form-label">I am a</label>
@@ -62,18 +61,33 @@ function Home() {
                     <option>Man </option>
                     <option>Woman</option>
                   </select>
-                </div>
+                </div> */}
                 {/* <select class="form-select">
           <option>Man</option>
           <option>Woman</option>
         </select> */}
+              {/* </div>
+            </div>
+          </div> */}
+          <div className="col-md-3">
+            <div className="form-group row align-items-center">
+              <div className="col-lg-5 col-md-12">
+                <label className="control-label text-white form-label">Seeking a</label>
+              </div>
+              <div className="col-lg-7 col-md-12">
+                <div className="selected-box">
+                  <select className="selectpicker">
+                    <option>Man</option>
+                    <option>Woman</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
           <div className="col-md-3">
             <div className="form-group row align-items-center">
               <div className="col-lg-5 col-md-12">
-                <label className="control-label text-white form-label">Seeking a</label>
+                <label className="control-label text-white form-label">Location</label>
               </div>
               <div className="col-lg-7 col-md-12">
                 <div className="selected-box">
@@ -90,7 +104,7 @@ function Home() {
               <div className="col-md-6">
                 <div className="form-group row align-items-center">
                   <div className="col-lg-4 col-md-12">
-                    <label className="control-label text-white form-label">From</label>
+                    <label className="control-label text-white form-label"> Age From</label>
                   </div>
                   <div className="col-lg-8 col-md-12">
                     <div className="selected-box">
@@ -201,7 +215,7 @@ function Home() {
               </div>
             </li>
             <li>
-              <div className="timeline-badge"><img className="img-fluid" src="/assets/images/timeline/03.png" alt /></div>
+              <div className="timeline-badge"><img className="img-fluid" style={{ height : "108px", width : "108px"}} src="/assets/images/timeline/03.png" alt /></div>
               <div className="timeline-panel">
                 <div className="timeline-heading text-center">
                   <h4 className="timeline-title divider-3">START DATING</h4>
@@ -216,7 +230,7 @@ function Home() {
       </div>
     </div>
   </section>
-  <section className="page-section-ptb pb-0 text-center our-app position-relative overflow-h" style={{background: 'url(images/pattern/01.png) no-repeat 0 0', backgroundSize: 'cover'}}>
+  {/* <section className="page-section-ptb pb-0 text-center our-app position-relative overflow-h" style={{background: `url("/assets/images/pattern/01.png") no-repeat 0 0`, backgroundSize: 'cover'}}>
     <div className="timeline-inner" style={{background: 'url(images/app-img.png)'}}>
       <div className="container-fluid h-100">
         <div className="row justify-content-center mb-4">
@@ -232,8 +246,9 @@ function Home() {
         </div>
       </div>
     </div>
-  </section>
-  <section className="page-section-ptb  text-white" style={{background: 'url(images/pattern/02.png) no-repeat 0 0', backgroundSize: 'cover'}}>
+  </section> */}
+  
+  <section className="page-section-ptb  text-white" style={{background: `url("/assets/images/pattern/02.png") no-repeat 0 0`, backgroundSize: 'cover'}}>
     <div className="container">
       <div className="row justify-content-center mb-4 mb-md-5">
         <div className="col-md-8 text-center">
@@ -242,92 +257,32 @@ function Home() {
       </div>
       <div className="row">
         <div className="col-md-3 col-sm-6 text-center">
-          <div className="counter"> <img src="/assets/images/counter/01.png" alt /> <span className="timer" data-to={1600} data-speed={10000}>1600</span>
-            <label className="form-label">Total Members</label>
+          <div className="counter"> <img src="/assets/images/counter/01.png" alt /> 
+            {/* <label className="form-label">Total Members</label> */}
           </div>
         </div>
         <div className="col-md-3 col-sm-6 text-center">
-          <div className="counter"> <img src="/assets/images/counter/02.png" alt /> <span className="timer" data-to={750} data-speed={10000}>750</span>
-            <label className="form-label">Online Members</label>
+          <div className="counter"> <img src="/assets/images/counter/02.png" alt /> 
+            {/* <label className="form-label">Online Members</label> */}
           </div>
         </div>
         <div className="col-md-3 col-sm-6 text-center">
-          <div className="counter"> <img src="/assets/images/counter/03.png" alt /> <span className="timer" data-to={380} data-speed={10000}>380</span>
-            <label className="form-label">Men Online</label>
+          <div className="counter"> <img src="/assets/images/counter/03.png" alt /> 
+            {/* <label className="form-label">Men Online</label> */}
           </div>
         </div>
         <div className="col-md-3 col-sm-6 text-center">
-          <div className="counter mb-0"> <img src="/assets/images/counter/04.png" alt /> <span className="timer" data-to={370} data-speed={10000}>370</span>
-            <label className="form-label">Women Online</label>
+          <div className="counter mb-0"> <img src="/assets/images/counter/04.png" alt />
+            {/* <label className="form-label">Women Online</label> */}
           </div>
         </div>
       </div>
     </div>
   </section>
-  <section className="page-section-ptb profile-slider pb-5">
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-md-8 text-center">
-          <h2 className="title divider">Last Added Profiles</h2>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-md-12">
-          <div className="owl-carousel owl-theme" data-nav-arrow="true" data-items={4} data-lg-items={4} data-md-items={3} data-sm-items={3} data-xs-items={2} data-space={30}>
-            <div className="item"> <a href="profile-details.html" className="profile-item">
-                <div className="profile-image clearfix"><img className="img-fluid w-100" src="/assets/images/profile/01.jpg" alt /></div>
-                <div className="profile-details text-center">
-                  <h5 className="title">Bill Nelson</h5>
-                  <span>23 Years Old</span> </div>
-              </a> </div>
-            <div className="item"> <a href="profile-details.html" className="profile-item">
-                <div className="profile-image clearfix"><img className="img-fluid w-100" src="/assets/images/profile/02.jpg" alt /></div>
-                <div className="profile-details text-center">
-                  <h5 className="title">Francisco Pierce</h5>
-                  <span>21 Years Old</span> </div>
-              </a> </div>
-            <div className="item"> <a href="profile-details.html" className="profile-item">
-                <div className="profile-image clearfix"><img className="img-fluid w-100" src="/assets/images/profile/03.jpg" alt /></div>
-                <div className="profile-details text-center">
-                  <h5 className="title">Nelle Townsend</h5>
-                  <span>19 Years Old</span> </div>
-              </a> </div>
-            <div className="item"> <a href="profile-details.html" className="profile-item">
-                <div className="profile-image clearfix"><img className="img-fluid w-100" src="/assets/images/profile/04.jpg" alt /></div>
-                <div className="profile-details text-center">
-                  <h5 className="title">Glen Bell</h5>
-                  <span>20 Years Old</span> </div>
-              </a> </div>
-            <div className="item"> <a href="profile-details.html" className="profile-item">
-                <div className="profile-image clearfix"><img className="img-fluid w-100" src="/assets/images/profile/05.jpg" alt /></div>
-                <div className="profile-details text-center">
-                  <h5 className="title">Bill Nelson</h5>
-                  <span>22 Years Old</span> </div>
-              </a> </div>
-            <div className="item"> <a href="profile-details.html" className="profile-item">
-                <div className="profile-image clearfix"><img className="img-fluid w-100" src="/assets/images/profile/06.jpg" alt /></div>
-                <div className="profile-details text-center">
-                  <h5 className="title">Francisco Pierce</h5>
-                  <span>23 Years Old</span> </div>
-              </a> </div>
-            <div className="item"> <a href="profile-details.html" className="profile-item">
-                <div className="profile-image clearfix"><img className="img-fluid w-100" src="/assets/images/profile/07.jpg" alt /></div>
-                <div className="profile-details text-center">
-                  <h5 className="title">Nelle Townsend</h5>
-                  <span>19 Years Old</span> </div>
-              </a> </div>
-            <div className="item"> <a href="profile-details.html" className="profile-item">
-                <div className="profile-image clearfix"><img className="img-fluid w-100" src="/assets/images/profile/08.jpg" alt /></div>
-                <div className="profile-details text-center">
-                  <h5 className="title">Glen Bell</h5>
-                  <span>22 Years Old</span> </div>
-              </a> </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section className="page-section-ptb grey-bg story-slider">
+
+  
+
+  {/* <section className="page-section-ptb grey-bg story-slider">
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-md-8 text-center">
@@ -469,8 +424,9 @@ function Home() {
         </div>
       </div>
     </div>
-  </section>
-  <section className="page-section-ptb text-white bg-overlay-black-70 bg text-center" style={{background: 'url(images/bg/bg-4.jpg) no-repeat 0 0', backgroundSize: 'cover'}}>
+  </section> */}
+
+  {/* <section className="page-section-ptb text-white bg-overlay-black-70 bg text-center" style={{background: 'url(images/bg/bg-4.jpg) no-repeat 0 0', backgroundSize: 'cover'}}>
     <div className="container position-relative">
       <div className="row justify-content-center mb-4 mb-md-5">
         <div className="col-md-10">
@@ -485,8 +441,9 @@ function Home() {
         </div>
       </div>
     </div>
-  </section>
-  <section className="page-section-ptb grey-bg">
+  </section> */}
+
+  {/* <section className="page-section-ptb grey-bg">
     <div className="container">
       <div className="row justify-content-center mb-4 mb-md-5">
         <div className="col-md-10 text-center">
@@ -582,8 +539,9 @@ function Home() {
         <div className="col-sm-10 text-center"> <a className="button  btn-lg btn-theme full-rounded animated right-icn"><span>Show More<i className="glyph-icon flaticon-hearts" aria-hidden="true" /></span></a> </div>
       </div>
     </div>
-  </section>
-  <section className="page-section-ptb pb-2 sm-pb-0 dark-bg text-white" style={{background: 'url(images/pattern/03.png) no-repeat 0 0', backgroundSize: 'cover'}}>
+  </section> */}
+
+  {/* <section className="page-section-ptb pb-2 sm-pb-0 dark-bg text-white" style={{background: 'url(images/pattern/03.png) no-repeat 0 0', backgroundSize: 'cover'}}>
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-md-10 text-center">
@@ -624,8 +582,9 @@ function Home() {
         </div>
       </div>
     </div>
-  </section>
-  <section className="page-section-ptb o-hidden grey-bg">
+  </section> */}
+
+  {/* <section className="page-section-ptb o-hidden grey-bg">
     <div className="container">
       <div className="row justify-content-center mb-4 mb-md-5">
         <div className="col-md-10 text-center">
@@ -737,10 +696,11 @@ function Home() {
         </div>
       </div>
     </div>
-  </section>
+  </section> */}
+  
   {/*=================================
  page-section */}
-  <section className="py-5 action-box-img bg text-center text-white bg-overlay-black-80" style={{backgroundImage: 'url(images/bg/bg-4.jpg)'}}>
+  {/* <section className="py-5 action-box-img bg text-center text-white bg-overlay-black-80" style={{backgroundImage: 'url(images/bg/bg-4.jpg)'}}>
     <div className="container">
       <div className="row justify-content-center position-relative">
         <div className="col-md-10">
@@ -748,8 +708,42 @@ function Home() {
           <a className="button  btn-lg btn-theme full-rounded animated right-icn"><span>Subscribe<i className="glyph-icon flaticon-hearts" aria-hidden="true" /></span></a> </div>
       </div>
     </div>
-  </section>  
+  </section>   */}
 </div>
+
+
+<Helmet>
+    {/* jquery  */}
+    <script type="text/javascript" src="/assets/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="/assets/js/popper.min.js"></script>
+
+    {/* bootstrap */}
+    <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+
+    {/* appear */}
+    <script type="text/javascript" src="/assets/js/jquery.appear.js"></script>
+
+    {/* Menu */}
+    <script type="text/javascript" src="/assets/js/mega-menu/mega_menu.js"></script>
+
+    {/* owl-carousel */}
+    <script type="text/javascript" src="/assets/js/owl-carousel/owl.carousel.min.js"></script>
+
+    {/* select */}
+    <script type="text/javascript" src="/assets/js/select/jquery-select.js"></script>
+
+    {/* counter */}
+    <script type="text/javascript" src="/assets/js/counter/jquery.countTo.js"></script>
+
+    {/* Magnific Popup */}
+    <script type="text/javascript" src="/assets/js/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    {/* style customizer */}
+    <script type="text/javascript" src="/assets/js/style-customizer.js"></script>
+
+    {/* custom */}
+    <script type="text/javascript" src="/assets/js/custom.js"></script>
+</Helmet>
     </>
   )
 }
