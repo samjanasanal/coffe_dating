@@ -1,10 +1,76 @@
-import React from 'react'
+import React, {  useContext, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
+import { ContextDatas } from '../services/Context'
+import { Link, useNavigate } from 'react-router-dom'
+import Axioscall from '../services/Api'
+import { UserUrl } from '../services/BaseUrl'
+import { Show_Toast } from '../utils/Toast'
 
 function ProfileFilter() {
+  const {SetFilterusers,filterusers,filterdata,SetFilterData}= useContext(ContextDatas)
+  const navigate = useNavigate();
+  useEffect(() => {
+    
+      filterHandlers()
+    
+  }, [])
+  const filterHandlers=async()=>{
+    try {
+        let body= filterdata 
+        if(!body.lat){
+            let storedBodyString = localStorage.getItem("searchfilterdata");
+            body = JSON.parse(storedBodyString)
+            SetFilterData(body)
+        }
+        console.log("body",body)
+        localStorage.setItem("searchfilterdata",JSON.stringify(body))
+        let data = await Axioscall("get",UserUrl,body)
+        console.log("datafiltered",data)
+        if(data.status===200){
+            SetFilterusers(data.data)
+        }else{
+            Show_Toast(data.data.message)
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
   return (
     <>
-       <section className="page-section-ptb profile-slider pb-5">
+    <section className="page-section-ptb">
+  <div className="container">
+    <div className="row justify-content-center mb-5">
+      
+    </div>
+    <div className="row">
+    {filterusers.length?filterusers.map((itm,k)=>(
+      <div className="col-lg-3 col-sm-6">
+        <div className="team team-1 sm-mb-3">
+          <div className="team-images"> <img className="img-fluid" src={itm?.photourl??"/assets/images/profile/01.jpg"} alt /> </div>
+          <div className="team-description">
+            <div className="team-tilte">
+              <h5 className="title"><Link to={`/profileDetails/${itm.id}`}>{itm.username}</Link></h5>
+              <span>{itm.age} Years Old </span> </div>
+            {/* <p>Nam nisl lacus, dignissim ac tristique ut, scelerisque eu massa. Vestibulum ligula nunc.</p> */}
+            <div className="team-social-icon social-icons color-hover">
+              <ul>
+                <li className="social-facebook"><a href="#"><i className="fa fa-facebook" /></a></li>
+                <li className="social-twitter"><a href="#"><i className="fa fa-twitter" /></a></li>
+                <li className="social-gplus"><a href="#"><i className="fa fa-google-plus" /></a></li>
+                <li className="social-dribbble"><a href="#"><i className="fa fa-dribbble" /></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      ))
+      :""}
+    </div>
+  </div>
+</section>
+
+
+       {/* <section className="page-section-ptb profile-slider pb-5">
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-md-8 text-center">
@@ -12,63 +78,29 @@ function ProfileFilter() {
         </div>
       </div>
       <div className="row">
-        <div className="col-md-12">
-          <div className="owl-carousel owl-theme" data-nav-arrow="true" data-items={4} data-lg-items={4} data-md-items={3} data-sm-items={3} data-xs-items={2} data-space={30}>
-            <div className="item"> <a href="profile-details.html" className="profile-item">
-                <div className="profile-image clearfix"><img className="img-fluid w-100" src="/assets/images/profile/01.jpg" alt /></div>
-                <div className="profile-details text-center">
-                  <h5 className="title">Bill Nelson</h5>
-                  <span>23 Years Old</span> </div>
-              </a> </div>
-            <div className="item"> <a href="profile-details.html" className="profile-item">
-                <div className="profile-image clearfix"><img className="img-fluid w-100" src="/assets/images/profile/02.jpg" alt /></div>
-                <div className="profile-details text-center">
-                  <h5 className="title">Francisco Pierce</h5>
-                  <span>21 Years Old</span> </div>
-              </a> </div>
-            <div className="item"> <a href="profile-details.html" className="profile-item">
-                <div className="profile-image clearfix"><img className="img-fluid w-100" src="/assets/images/profile/03.jpg" alt /></div>
-                <div className="profile-details text-center">
-                  <h5 className="title">Nelle Townsend</h5>
-                  <span>19 Years Old</span> </div>
-              </a> </div>
-            <div className="item"> <a href="profile-details.html" className="profile-item">
-                <div className="profile-image clearfix"><img className="img-fluid w-100" src="/assets/images/profile/04.jpg" alt /></div>
-                <div className="profile-details text-center">
-                  <h5 className="title">Glen Bell</h5>
-                  <span>20 Years Old</span> </div>
-              </a> </div>
-            <div className="item"> <a href="profile-details.html" className="profile-item">
-                <div className="profile-image clearfix"><img className="img-fluid w-100" src="/assets/images/profile/05.jpg" alt /></div>
-                <div className="profile-details text-center">
-                  <h5 className="title">Bill Nelson</h5>
-                  <span>22 Years Old</span> </div>
-              </a> </div>
-            <div className="item"> <a href="profile-details.html" className="profile-item">
-                <div className="profile-image clearfix"><img className="img-fluid w-100" src="/assets/images/profile/06.jpg" alt /></div>
-                <div className="profile-details text-center">
-                  <h5 className="title">Francisco Pierce</h5>
-                  <span>23 Years Old</span> </div>
-              </a> </div>
-            <div className="item"> <a href="profile-details.html" className="profile-item">
-                <div className="profile-image clearfix"><img className="img-fluid w-100" src="/assets/images/profile/07.jpg" alt /></div>
-                <div className="profile-details text-center">
-                  <h5 className="title">Nelle Townsend</h5>
-                  <span>19 Years Old</span> </div>
-              </a> </div>
-            <div className="item"> <a href="profile-details.html" className="profile-item">
-                <div className="profile-image clearfix"><img className="img-fluid w-100" src="/assets/images/profile/08.jpg" alt /></div>
-                <div className="profile-details text-center">
-                  <h5 className="title">Glen Bell</h5>
-                  <span>22 Years Old</span> </div>
-              </a> </div>
-          </div>
-        </div>
+        
+          
+            {filterusers.length?filterusers.map((itm,k)=>(
+              <div className="col-md-4">
+              <div key={k} className="item"> <a href="profile-details.html" className="profile-item">
+              <div className="profile-image clearfix"><img className="img-fluid w-100" src={itm?.photourl??"/assets/images/profile/01.jpg"} alt /></div>
+              <div className="profile-details text-center">
+                <h5 className="title">{itm?.username??""}</h5>
+                <span>{itm?.age??""} Years Old</span> </div>
+            </a> </div>
+            </div>
+            ))
+            :""}
+            
+            
+          
+        
       </div>
     </div>
-  </section> 
+  </section>  */}
 
   <Helmet>
+  <link href="assets/css/owl-carousel/owl.carousel.css" rel="stylesheet" type="text/css" />
      {/* jquery  */}
      <script type="text/javascript" src="/assets/js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="/assets/js/popper.min.js"></script>
@@ -84,6 +116,8 @@ function ProfileFilter() {
 
     {/* owl-carousel */}
     <script type="text/javascript" src="/assets/js/owl-carousel/owl.carousel.min.js"></script>
+    
+    
 
     {/* select */}
     <script type="text/javascript" src="/assets/js/select/jquery-select.js"></script>

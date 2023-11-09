@@ -1,7 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Header() {
+  const navigate = useNavigate();
+  const logoutHandler=()=>{
+    localStorage.clear()
+    navigate("/login")
+  }
+  let  pathurl = window.location.pathname
+  console.log("pathurl",pathurl)
   return (
     <>
        {/*=================================
@@ -41,6 +48,7 @@ header */}
       {/* menu start */}
       <nav id="menu" className="mega-menu">
         {/* menu list items container */}
+        
         <section className="menu-list-items">
           <div className="container">
             <div className="row position-relative">
@@ -50,6 +58,7 @@ header */}
                   <li> <a href="index-default.html"><img src="/assets/images/logo.png" alt="logo" /> </a> </li>
                 </ul>
                 {/* menu links */}
+                {localStorage.getItem("token-cofee")?
                 <ul className="menu-links">
                   {/* active class */}
                   <li className="active"><Link to={`/`}> Home </Link>
@@ -62,13 +71,17 @@ header */}
                       <li><a href="stories-2.html">Received Requests</a></li>
                     </ul>
                   </li>
-                  <li><Link to={`/profileDetails`}>My Profile</Link>
+                  <li><Link to={`/profileDetails/${localStorage.getItem("userid-cofee")}`}>My Profile</Link>
+                  </li>    
+                  <li className='d-flex justify-content-center align-items-center'><a className=' text-danger ' style={{cursor:"pointer"}} onClick={()=>logoutHandler()}>LogOut</a>
                   </li>    
                 </ul>
+                :""}
               </div>
             </div>
           </div>
         </section>
+        
       </nav>
       {/* menu end */}
     </div>

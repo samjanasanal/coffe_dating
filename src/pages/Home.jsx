@@ -1,71 +1,52 @@
-import React ,{ useState } from 'react'
+import React ,{ useContext, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import Axioscall from '../services/Api';
 import { UserUrl } from '../services/BaseUrl';
 import { useNavigate } from 'react-router-dom';
+import { ContextDatas } from '../services/Context';
 
 function Home() {
 let navigate = useNavigate()
-  const [data, setdata] = useState()
-  console.log("data",data)
+const {filterdata,SetFilterData,filterHandler}=useContext(ContextDatas)
+  // const [data, setdata] = useState()
+  
+  console.log("filterdata",filterdata)
 
-
+  useEffect(() => {
+    // window.scrollTo(0,320);
+  }, [])
+ 
+  
   const numbers = Array.from({ length: 50 }, (_, index) =>index+1);
 
   
-  const sendData = async() => {
-    try {
-      let response = await Axioscall("get",UserUrl,data)
-      console.log("response",response)
-      if(response.status===200){
-        Show_Toast(data.data.message,true)
-        return navigate("/profileFilter")
+  const handleClick = (e) => {
+    if(e.target.checked){
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            SetFilterData({...filterdata,lat:latitude,lon:longitude });
+            
+          },
+          (error) => {
+            console.error("Error getting geolocation:", error);
+          }
+        );
+      }else {
+        console.error("Geolocation is not supported by your browser");
       }
-    } catch (error) {
-      console.error(error)
+    }else{
+      SetFilterData({...filterdata,lat:"",lon:"" })
     }
-  }
-  
+     
+  };
   return (
     <>
     <div>
   {/*=================================
  banner */}
-  <section id="home-slider" className="fullscreen">
-    <div id="main-slider" className="carousel slide" data-bs-ride="carousel">
-      <div className="carousel-inner">
-        {/*/ Carousel item end */}
-        <div className="carousel-item active h-100 bg-overlay-red" style={{background: `url("/assets/images/bg/bg-1.jpg") no-repeat 0 0`, backgroundSize: 'cover'}}>
-          <div className="slider-content">
-            <div className="container">
-              <div className="row carousel-caption align-items-center h-100">
-                <div className="col-md-12 text-end">
-                  <div className="slider-1">
-                    <h1 className="animated2 text-white">Are You <span>Waiting</span> For <span> Dating ?</span></h1>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="carousel-item h-100 bg-overlay-red" style={{background: `url("/assets/images/bg/bg-2.jpg") no-repeat 0 0`, backgroundSize: 'cover'}}>
-          <div className="slider-content">
-            <div className="container">
-              <div className="row carousel-caption align-items-center h-100">
-                <div className="col-md-12 text-start">
-                  <div className="slider-1">
-                    <h1 className="animated7 text-white">Meet big <span> and </span> beautiful love <span> here!</span></h1>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/*/ Carousel item end */}
-      </div>
-      {/* Controls */}
-      <a className="left carousel-control" href="#main-slider" data-bs-slide="prev"> <span><i className="fa fa-angle-left" /></span> </a> <a className="right carousel-control" href="#main-slider" data-bs-slide="next"> <span><i className="fa fa-angle-right" /></span> </a> </div>
-  </section>
+  {/*  */}
   {/*=================================
  banner */}
   {/*=================================
@@ -74,121 +55,100 @@ let navigate = useNavigate()
     <div className="container">
       <div className="banner-form">
         <div className="row">
-          {/* <div className="col-md-3">
-            <div className="form-group row align-items-center">
-              <div className="col-lg-4 col-md-12">
-                <label className="control-label text-white form-label">I am a</label>
-              </div>
-              <div className="col-lg-8 col-md-12">
-                <div className="selected-box">
-                  <select className="selectpicker">
-                    <option>Man </option>
-                    <option>Woman</option>
-                  </select>
-                </div> */}
-                {/* <select class="form-select">
-          <option>Man</option>
-          <option>Woman</option>
-        </select> */}
-              {/* </div>
-            </div>
-          </div> */}
-          <div className="col-md-3">
-            <div className="form-group row align-items-center">
-              <div className="col-lg-5 col-md-12">
-                <label className="control-label text-white form-label">Seeking a</label>
-              </div>
-              <div className="col-lg-7 col-md-12">
-                <div className="selected-box">
-                  <select className="selectpicker" value={data?.sex} onChange={(e)=>setdata({...data , sex : e.target.value})}>
-                    <option value="male">Man</option>
-                    <option value="female">Woman</option>
-                    <option value="others">Others</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3">
-            <div className="form-group row align-items-center">
-              <div className="col-lg-5 col-md-12">
-                <label className="control-label text-white form-label">Location</label>
-              </div>
-              <div className="col-lg-7 col-md-12">
-                <div className="selected-box">
-                  <select className="selectpicker" value={data?.location} onChange={(e)=>setdata({...data , location : e.target.value})}>
-                    <option disabled value="">--Select--</option>
-                    <option value="kasaragod">Kasaragod</option>
-                    <option value="kannur">Kannur</option>
-                    <option value="kozhikode">Kozhikode</option>
-                    <option value="wayanad">Wayanad</option>
-                    <option value="malappuram">Malappuram</option>
-                    <option value="idukki">Idukki</option>
-                    <option value="palakkad">Palakkad</option>
-                    <option value="thrissur">Thrissur</option>
-                    <option value="alappuzha">Alappuzha</option>
-                    <option value="ernakulam">Ernakulam</option>
-                    <option value="kottayam">Kottayam</option>
-                    <option value="pathanamthitta">Pathanamthitta</option>
-                    <option value="kollam">Kollam</option>
-                    <option value="thiruvananthapuram">Thiruvananthapuram</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-group row align-items-center">
-                  <div className="col-lg-4 col-md-12">
-                    <label className="control-label text-white form-label"> Age From</label>
-                  </div>
-                  <div className="col-lg-8 col-md-12">
-                    <div className="selected-box">
-                    <select className="selectpicker" value={data?.fromage} onChange={(e)=>setdata({...data , fromage :e.target.value})}>
-                       {numbers.slice(17).map(number => (
-                          <option key={number} value={number}>{number}</option>
-                        ))}
-                    </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group row align-items-center">
-                  <div className="col-lg-4 col-md-12">
-                    <label className="control-label text-white ps-0 form-label">To</label>
-                  </div>
-                  <div className="col-lg-8 col-md-12">
-                    <div className="selected-box">
-                    <select className="selectpicker" value={data?.toage} onChange={(e)=>setdata({...data , toage : e.target.value})}>
-                        {numbers.slice(17).map(number => (
-                          <option key={number} value={number}>{number}</option>
-                        ))}
-                    </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-2"><button className="button btn-lg btn-theme full-rounded animated right-icn" onClick={sendData}><span>search <i className="glyph-icon flaticon-hearts" aria-hidden="true" /></span></button></div>
+         
+          <div className="col-md-2"><button className="button btn-lg btn-theme full-rounded animated right-icn" onClick={()=>""}><span>search <i className="glyph-icon flaticon-hearts" aria-hidden="true" /></span></button></div>
         </div>
       </div>
-    </div>
+    </div>  
   </section>
   {/*=================================
  Page Section */}
   <section className="page-section-ptb position-relative timeline-section">
-    <div className="container">
+    <div className="container" >
       <div className="row justify-content-center mb-4 mb-md-5">
         <div className="col-md-10 text-center">
           <h2 className="title divider mb-3">Step to find your Coffee Mate</h2>
           <p className="lead">Make your Coffee date: Sip, chat, spark connection!</p>
         </div>
       </div>
-      <div className="row justify-content-center">
+      <form onSubmit={(e)=>{e.preventDefault();filterHandler()}} className="text-center mt-3" >
+ 
+ <div className="row setup-content" id="step-3" style={{background: 'url(/assets/images/pattern/04.png) no-repeat 0 0', backgroundSize: 'cover'}}>
+   <div className="col-md-12 my-5">
+     <div className="row  justify-content-center">
+       <div className="col-md-8 text-start text-capitalize text-white" >
+         <div className="form-group mb-0">
+           <label className="title divider-3 mb-3">intrested in</label>
+           <div className="row mb-3">
+             <div className="col-md-4 mt-sm-2">
+               <div className="radio">
+                 <input name="group3" defaultChecked="checked"value={filterdata?.sex??""} checked={filterdata.sex==="femail"} onChange={(e)=>SetFilterData({...filterdata,sex:"femail"})} id="radio3" type="radio" />
+                 <label htmlFor="radio3">female</label>
+               </div>
+             </div>
+             <div className="col-md-4 mt-sm-2">
+               <div className="radio">
+                 <input name="group3" value={filterdata?.sex??""} checked={filterdata.sex==="male"} onChange={(e)=>SetFilterData({...filterdata,sex:"male"})} id="radio4" type="radio" />
+                 <label htmlFor="radio4">male</label>
+               </div>
+             </div>
+             <div className="col-md-4 mt-sm-2">
+               <div className="radio">
+                 <input name="group3" value={filterdata?.sex??""} checked={filterdata.sex==="others"} onChange={()=>SetFilterData({...filterdata,sex:"others"})} id="radio5" type="radio" />
+                 <label htmlFor="radio5">Others</label>
+               </div>
+             </div>
+           </div>
+           <div className="form-group mb-3">
+             <label className="title divider-3 mb-3">age preference</label>
+             <div className='row'>
+              <div className='col-md-3'>
+              <label className='text-white mb-1'>Age From : </label>
+               <select required className='form-select' onChange={(e)=>SetFilterData({...filterdata,fromage:e.target.value})} value={filterdata?.fromage}>
+                
+               {numbers.slice(17).map(number => (
+                          <option key={number} value={number}>{number}</option>
+                        ))}
+               </select>
+               </div>
+              <div className='col-md-3'>
+              <label className='text-white mb-1'>Age TO : </label>
+               <select className='form-select' onChange={(e)=>SetFilterData({...filterdata,toage:e.target.value})} value={filterdata?.toage}>
+               {numbers.slice(17).map(number => (
+                          <option key={number} value={number}>{number}</option>
+                        ))}
+               </select>
+               </div>
+               {/* <input id="slider2" className="range-slider" data-slider-id="ex1Slider2" type="text" data-slider-min={30} data-slider-max={100} data-slider-step={1} data-slider-value={30} /> */}
+             </div>
+           </div>
+           <div className="form-group mb-3">
+             <label className="title divider-3 mb-3">distance preference (km)</label>
+             <div>
+               <input id=""  onChange={(e)=>SetFilterData({...filterdata,distance:e.target.value})}  className="text-dark"  type="number"  />
+               
+             </div>
+           </div>
+           <div className="form-group mb-3">
+             <label className="title divider-3 mb-3">location access</label>
+             <div className="checkbox">
+               <input required name="check2" onChange={(e)=>handleClick(e)} id="check2" type="checkbox" />
+               <label htmlFor="check2">allow to access your location</label>
+             </div>
+           </div>
+           <div className="form-group mb-3">
+             <div className="profile-info">
+               <p className="mb-0"><i className="fa fa-info-circle" aria-hidden="true" /> by clicking submit you are agreeing to our terms and conditions of use.</p>
+             </div>
+           </div>
+           <div className="form-group mb-0 text-center"> <button type='submit' className="button btn-theme full-rounded btn btn-lg mt-2 animated right-icn"><span>submit<i className="glyph-icon flaticon-hearts"  /></span></button> </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+</form>
+      {/* <div className="row justify-content-center">
         <div className="col-lg-10 col-md-12">
           <ul className="timeline list-inline">
             <li>
@@ -226,7 +186,7 @@ let navigate = useNavigate()
             </li>
           </ul>
         </div>
-      </div>
+      </div> */}
     </div>
   </section>
   {/* <section className="page-section-ptb pb-0 text-center our-app position-relative overflow-h" style={{background: `url("/assets/images/pattern/01.png") no-repeat 0 0`, backgroundSize: 'cover'}}>
@@ -257,7 +217,7 @@ let navigate = useNavigate()
       <div className="row">
         <div className="col-md-3 col-sm-6 text-center">
           <div className="counter"> <img src="/assets/images/counter/01.png" alt /> 
-            {/* <label className="form-label">Total Members</label> */}
+            
           </div>
         </div>
         <div className="col-md-3 col-sm-6 text-center">
@@ -270,11 +230,7 @@ let navigate = useNavigate()
             {/* <label className="form-label">Men Online</label> */}
           </div>
         </div>
-        <div className="col-md-3 col-sm-6 text-center">
-          <div className="counter mb-0"> <img src="/assets/images/counter/04.png" alt />
-            {/* <label className="form-label">Women Online</label> */}
-          </div>
-        </div>
+
       </div>
     </div>
   </section>

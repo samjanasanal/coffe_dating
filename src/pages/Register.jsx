@@ -51,7 +51,7 @@ function Register() {
         console.log("data",data)
         if(data.status===200){
           Show_Toast(data.data.message,true)
-          return navigate("/home")
+          return navigate("/login")
         }
       } catch (error) {
         console.error(error)

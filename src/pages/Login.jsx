@@ -15,7 +15,9 @@ function Login() {
         if(data.data.status===200){
           
           localStorage.setItem("token-cofee",data.data.token)
-          return navigate("/home")
+          localStorage.setItem("userid-cofee",data.data.user_id)
+          window.location.href="/"
+          // return navigate("/")
         }else{
           Show_Toast("incorrect password or username")
         }
