@@ -1,17 +1,29 @@
 import React ,{ useState } from 'react'
 import { Helmet } from 'react-helmet'
+import Axioscall from '../services/Api';
+import { UserUrl } from '../services/BaseUrl';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
-
+let navigate = useNavigate()
   const [data, setdata] = useState()
-  
+  console.log("data",data)
 
 
   const numbers = Array.from({ length: 50 }, (_, index) =>index+1);
 
   
   const sendData = async() => {
-    
+    try {
+      let response = await Axioscall("get",UserUrl,data)
+      console.log("response",response)
+      if(response.status===200){
+        Show_Toast(data.data.message,true)
+        return navigate("/profileFilter")
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
   
   return (
@@ -161,7 +173,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <div className="col-md-2"><a className="button btn-lg btn-theme full-rounded animated right-icn"><span>search <i className="glyph-icon flaticon-hearts" aria-hidden="true" /></span></a></div>
+          <div className="col-md-2"><button className="button btn-lg btn-theme full-rounded animated right-icn" onClick={sendData}><span>search <i className="glyph-icon flaticon-hearts" aria-hidden="true" /></span></button></div>
         </div>
       </div>
     </div>
@@ -239,7 +251,7 @@ function Home() {
     <div className="container">
       <div className="row justify-content-center mb-4 mb-md-5">
         <div className="col-md-8 text-center">
-          <h2 className="title divider">Animated Fun Facts</h2>
+          <h2 className="title divider">Fun Facts</h2>
         </div>
       </div>
       <div className="row">
