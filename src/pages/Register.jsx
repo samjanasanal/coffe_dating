@@ -1,10 +1,17 @@
 import React , {useState} from 'react'
 import { Helmet } from 'react-helmet'
 import * as filestack from "filestack-js";
-
+import { Form } from 'react-bootstrap'
+import Axioscall from '../services/Api';
+import { UserUrl } from '../services/BaseUrl';
+import { Show_Toast } from '../utils/Toast';
+import { Link, useNavigate } from 'react-router-dom';
 function Register() {
+  const [validated1,setvalidated1]=useState(false)
+  const [ userdata,SetUserdata] = useState({sex:"male"})
+  const navigate = useNavigate()
 
-
+  console.log("userdata",userdata)
     const clients = filestack.init("AVg0GNiqZTK2dSviLe3YHz");
     const openFilePicker = () => {
       const options = {
@@ -21,12 +28,35 @@ function Register() {
         uploadInBackground: false,
         onUploadDone: (res) => {
           const uploadedImages = res.filesUploaded.map((file) => file.url);
-          setData({ ...data, image: uploadedImages });
+          SetUserdata({ ...userdata, iphotourlmage: uploadedImages });
         },
       };
       clients.picker(options).open();
     };  
-
+    const isValid = (event, fun_name, setstate) => {
+      const form = event.currentTarget;
+        event.preventDefault();
+        setstate(true);
+        if (form.checkValidity() === false) {
+          event.stopPropagation();
+          return false;
+        } else {
+          fun_name();
+          return true;
+        }
+      };
+    const RegisterHandler=async()=>{
+      try {
+        let data = await Axioscall("post",UserUrl,userdata)
+        console.log("data",data)
+        if(data.status===200){
+          Show_Toast(data.data.message,true)
+          return navigate("/home")
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    } 
   return (
     <>
    <div>
@@ -58,88 +88,132 @@ function Register() {
     <div className="container">
       <div className="row  justify-content-center">
         <div className="col-lg-6">
+        <Form noValidate validated={validated1}  onSubmit={(e)=>isValid(e,RegisterHandler,setvalidated1)} >
           <div className="login-1-form register-1-form clearfix text-center">
             <h4 className="title divider-3 text-white mb-3">sign up</h4>
             <div className="section-field mb-3">
               <div className="field-widget"> <i className="glyph-icon flaticon-user" />
-                <input id="Firstname" type="text" placeholder="User name" />
+                <input id="Firstname" type="text" required onChange={(e)=>SetUserdata({...userdata,username:e.target.value})} value={userdata?.username??""} placeholder="User name" />
+                <Form.Control.Feedback type="invalid">Please provide a Username </Form.Control.Feedback>
               </div>
             </div>
             <div className="section-field mb-3">
               <div className="field-widget"> <i className="glyph-icon flaticon-user" />
-                <input id="Lastname" type="text" placeholder="Mobile" />
+                <input id="Lastname" type="text" required onChange={(e)=>SetUserdata({...userdata,mobile:e.target.value})} value={userdata?.mobile??""} placeholder="Mobile" />
+                <Form.Control.Feedback type="invalid">Please provide a mobile</Form.Control.Feedback>
               </div>
             </div>
             <div className="section-field mb-3">
               <div className="field-widget"> <i className="fa fa-envelope-o" aria-hidden="true" />
-                <input id="email" className="email" type="number" placeholder="Age" name="email" />
+                <input id="email" className="email" type="number" required onChange={(e)=>SetUserdata({...userdata,age:e.target.value})} value={userdata?.age??""} placeholder="Age" name="email" />
+                <Form.Control.Feedback type="invalid">Please provide Age</Form.Control.Feedback>
               </div>
             </div>
-            <div className="section-field mb-3">
-              <div className="field-widget"> <i className="glyph-icon flaticon-padlock" />
-                <input id="Password" className="Password" type="password" placeholder="Password" name="Password" />
-              </div>
-            </div>
-            <div className="section-field mb-3">
-              <div className="field-widget"> <i className="glyph-icon flaticon-padlock" />
-                <input id="ConfirmPassword" className="Password" type="password" placeholder="Confirm Password" name="Password" />
-              </div>
-            </div>
-            <div className="section-field mb-3">
-            <div className="field-widget">
-            {/* <div className="field-widget "><i className="glyph-icon flaticon-user" /> */}
-            {/* <label for="gender" class="form-label">
-                          Gender
-                        </label> */}
-                    
-                    <select
-                          name="gender"
-                          id=""
-                          className="form-select"
-                          style={{width :"300px", textAlign:"center"}}
-                        //   value={personalForm?.gender}
-                        //   onChange={(e) =>
-                        //     SetPersonalForm({
-                        //       ...personalForm,
-                        //       gender: e.target.value,
-                        //     })
-                        //   }
-                        >
-                          <option disabled selected value="">
-                            -- Select Gender --
-                          </option>
-                          <option value="male">Male</option>
-                          <option value="female">Female</option>
-                          <option value="other">Other</option>
-                        </select>
-                
-                        
-                </div>
-            </div>
-            <div className="section-field mb-3">
-                    <div className="field-widget">
-                      <button className="btn btn-danger" onClick={openFilePicker}>
-                        Picture
+            <div className="section-field mb-3 ">
+                    <div className="field-widgets my-3 ">
+                      <i class="fa-solid fa-genderless " />
+                      <label className=" fontlarge">Male</label>&nbsp;
+                      <input
+                        id="number"
+                        className="small-radio"
+                        type="radio"
+                        placeholder="Male"
+                        name="male"
+                        value={userdata.sex}
+                        checked={userdata.sex==="male"}
+                        onChange={(e) =>
+                          SetUserdata({ ...userdata, sex: "male"})
+                        }
+                      />&nbsp;
+                      <label className="label fontlarge" >Female</label>&nbsp;
+                      <input
+                        id="number"
+                        className="small-radio"
+                        type="radio"
+                        placeholder="Female"
+                        name="female"
+                        checked={userdata.sex==="female"}
+                        value={userdata.sex}
+                        onChange={(e) =>
+                          SetUserdata({ ...userdata, sex: "female"})
+                        }
+                      />&nbsp;
+                      <label className="label fontlarge">Others</label>&nbsp;
+                      <input
+                        id="number"
+                        className="small-radio"
+                        type="radio"
+                        placeholder="others"
+                        name="others" 
+                        checked={userdata.sex==="others"}
+                        value={userdata.sex}
+                        onChange={(e) =>
+                          SetUserdata({ ...userdata, sex: "others" })
+                        }
+                      />&nbsp;
+                    </div>
+                  </div>
+                  <div className="section-field  ">
+                    <div className="field-widget mrgbottom text-start ">
+                      <button className="btn btn-danger mb-3" type='button' onClick={openFilePicker}>
+                        Upload Picture
                       </button>
                     </div>
                   </div>
+            <div className="section-field mb-2">
+              <div className="field-widget mrgbottom"> 
+              
+                <select className="form-select" onChange={(e)=>SetUserdata({...userdata,location:e.target.value})}>
+                <option defaultValue="" selected value="">
+                            -- Select Place --
+                </option>
+                <option value="ernakulam">Ernakulam</option>
+                <option value="kannur">Kannur</option>
+                <option value="kollam">Kollam</option>
+                <option value="kozhikode">Kozhikode</option>
+                <option value="palakkad">Palakkad</option>
+                <option value="thiruvananthapuram">Thiruvananthapuram</option>
+                <option value="wayanad">Wayanad</option>
+                <option value="alappuzha">Alappuzha</option>
+                <option value="idukki">Idukki</option>
+                <option value="kasaragod">Kasaragod</option>
+                <option value="kottayam">Kottayam</option>
+                <option value="malappuram">Malappuram</option>
+                <option value="pathanamthitta">Pathanamthitta</option>
+                <option value="thrissur">Thrissur</option>
+                </select>
+                <Form.Control.Feedback type="invalid">Please provide sex</Form.Control.Feedback>
+              </div>
+            </div>
+            
             <div className="section-field mb-3">
               <div className="field-widget"> <i className="fa fa-briefcase" aria-hidden="true" />
-                <input id="Proffesionname" type="text" placeholder="Location" />
+                <input id="Proffesionname" onChange={(e)=>SetUserdata({...userdata,bio:e.target.value})} value={userdata?.bio??""} type="text" placeholder="Bio" />
               </div>
             </div>
             <div className="section-field mb-3">
-              <div className="field-widget"> <i className="fa fa-briefcase" aria-hidden="true" />
-                <input id="Proffesionname" type="text" placeholder="Bio" />
+              <div className="field-widget"> <i className="glyph-icon flaticon-padlock" />
+                <input id="Password"  onChange={(e)=>SetUserdata({...userdata,password:e.target.value})} value={userdata?.password??""} className="Password" type="password" placeholder="Password" name="Password" />
+                <Form.Control.Feedback type="invalid">Please provide Password</Form.Control.Feedback>
               </div>
             </div>
+            <div className="section-field mb-3">
+              <div className="field-widget"> <i className="glyph-icon flaticon-padlock" />
+                <input id="ConfirmPassword"  onChange={(e)=>SetUserdata({...userdata,repassword:e.target.value})} value={userdata?.repassword??""} className="Password" type="password" placeholder="Confirm Password" name="Password" />
+                <Form.Control.Feedback type="invalid">Please provide confirm password</Form.Control.Feedback>
+              </div>
+            </div>
+            
+            
+           
             <div className="clearfix" />
-            <div className="section-field text-uppercase text-center mt-2"> <a className="button  btn-lg btn-theme full-rounded animated right-icn" href="step.html"><span>next<i className="glyph-icon flaticon-hearts" aria-hidden="true" /></span></a> </div>
+            <div className="section-field text-uppercase text-center mt-2"> <button className="button  btn-lg btn-theme full-rounded animated right-icn" type='submit'><span>next<i className="glyph-icon flaticon-hearts" aria-hidden="true" /></span></button> </div>
             <div className="clearfix" />
             <div className="section-field mt-2 text-center text-white">
-              <p className="lead mb-0">Have an account? <a className="text-white" href="login.html"><u>Sign In!</u> </a></p>
+              <p className="lead mb-0">Have an account? <Link className="text-white" to={"/login"}><u>Sign In!</u> </Link></p>
             </div>
           </div>
+          </Form>
         </div>
       </div>
     </div>

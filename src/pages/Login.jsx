@@ -1,9 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import Axioscall from '../services/Api'
+import { LoginUrl, UserUrl } from '../services/BaseUrl'
+import { Show_Toast } from '../utils/Toast'
 
 function Login() {
-    
+    const [userdata,SetUserdata]=useState({username:"",password:""})
+    const navigate = useNavigate()
+    const loginHandler=async()=>{
+      try {
+        let data = await Axioscall("post",LoginUrl,userdata)
+        // console.log("dataaaa",data)
+        if(data.data.status===200){
+          
+          localStorage.setItem("token-cofee",data.data.token)
+          return navigate("/home")
+        }else{
+          Show_Toast("incorrect password or username")
+        }
+      } catch (error) {
+        
+      }
+    }
   return (
     <>
     <div>
@@ -45,17 +64,17 @@ function Login() {
             </div> */}
             <div className="section-field mb-3">
               <div className="field-widget"> <i className="glyph-icon flaticon-user" />
-                <input id="name" className="web" type="text" placeholder="User name" name="web" />
+                <input id="" className="" onChange={(e)=>SetUserdata({...userdata,username:e.target.value})} value={userdata?.username??""} type="text" placeholder="User name" name="web" />
               </div>
             </div>
             <div className="section-field mb-3">
               <div className="field-widget"> <i className="glyph-icon flaticon-padlock" />
-                <input id="Password" className="Password" type="password" placeholder="Password" name="Password" />
+                <input id="" className="" onChange={(e)=>SetUserdata({...userdata,password:e.target.value})} value={userdata?.password??""} type="password" placeholder="Password" name="Password" />
               </div>
             </div>
-            <div className="section-field text-uppercase"> <a href="#" className="float-end text-white">Forgot Password?</a> </div>
+            {/* <div className="section-field text-uppercase"> <a href="#" className="float-end text-white">Forgot Password?</a> </div> */}
             <div className="clearfix" />
-            <div className="section-field text-uppercase text-center mt-2"> <a className="button  btn-lg btn-theme full-rounded animated right-icn"><span>sign in<i className="glyph-icon flaticon-hearts" aria-hidden="true" /></span></a> </div>
+            <div className="section-field text-uppercase text-center mt-2"> <button className="button  btn-lg btn-theme full-rounded animated right-icn" onClick={()=>loginHandler()}><span>sign in<i className="glyph-icon flaticon-hearts" aria-hidden="true" /></span></button> </div>
             <div className="clearfix" />
             <div className="section-field mt-2 text-center text-white">
               <p className="lead mb-0">Don’t have an account? <Link className="text-white" to={`/register`}><u>Register now!</u> </Link></p>

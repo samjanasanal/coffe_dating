@@ -14,8 +14,8 @@ function App() {
     <>
     <Routes>
       <Route path='/' element={<OutletConnection/>}>
-        <Route index element={<Home/>}/>
-        <Route path='/login' element={<Login/>}/>
+        <Route index element={<Login/>}/>
+        <Route path='/home' element={<Home/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/profileFilter' element={<ProfileFilter/>}/>
         <Route path='/profileDetails' element={<ProfileDetails/>}/>
