@@ -239,7 +239,7 @@ function Home() {
     <div className="container">
       <div className="row justify-content-center mb-4 mb-md-5">
         <div className="col-md-8 text-center">
-          <h2 className="title divider">Animated Fun Facts</h2>
+          <h2 className="title divider">Fun Facts</h2>
         </div>
       </div>
       <div className="row">
