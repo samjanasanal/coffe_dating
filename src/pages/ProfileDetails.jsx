@@ -34,7 +34,7 @@ function ProfileDetails() {
             <div className="col-md-12">
               <div className="profile-cntn text-white">
                 <ul>
-                  <li><img src={itm?.photourl??"/assets/images/profile/profile-img.png"} alt="Profile" /></li>
+                  <li><img src={userdata?.photourl??"/assets/images/profile/profile-img.png"} alt="Profile" /></li>
                   <li>
                     <div className="profile-text">
                       <h2>name</h2>
