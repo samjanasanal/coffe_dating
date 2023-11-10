@@ -56,7 +56,7 @@ export const ContextDatas = createContext();
                 console.log("dataaa",data)
                 if(data.data.status===200){
                     console.log("updated location")
-                    // window.location.href="/profileFilter"
+                    window.location.href="/profileFilter"
                     // navigate("/profileFilter")
                 }else{
                     console.error("locationn error")
